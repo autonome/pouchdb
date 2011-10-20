@@ -18,32 +18,40 @@ After IndexedDatabase is more solidified it's possible that BrowserCouch and Pou
 
 # API
 
-## createCouch(options[, callback])
+## open(name[, callback])
 
-This method gets an existing database if one exists or creates a new one if one does not exist.
+This method opens an existing database by name if it exists or creates a new one if it does not exist.
 
-The first argument is an options object. The only required option is `name`, all others are optional. The second argument an optional success callback.
+The first argument is the name of the database to open. This is a string, and is required.
 
-* `'name'` - The name of the PouchDB you would like to get/create.
-* `'description'` - A description of the database. If one is not set then PouchDB will generate one since it is required by the IndexedDatabase API.
-* '`success'` - A callback function taking one argument, the PouchDB database. The second argument to `createCouch` will be used if passed.
-* '`error'` - An error handler callback taking one argument, the error.
+The second argument is an optional callback function, which is passed the following parameters:
+
+* '`error`' - Null if no error occured. If an error occured, it is an object with an `error` property containing a string error code and a `reason` property containing a human-readable explanation of the error.
+* '`database`' - Object representing the opened CouchDB database.
+
+Example:
 
 <pre>
-  createCouch({name:'test'}, function (couch) {
+  pouch.open("myDB", function (err, db) {
     // Use my CouchDB
-  })
+  });
 </pre>
+
+## deleteDatabase(name)
+
+This method deletes the database specified by `name`.
+
+TODO: This method needs a callback consistent with the callback pattern in `open`.
 
 ## couch
 
 The subject of the of createCouch success callback. This is primary PouchDB API.
 
-### couch.get(docid, options)
+### couch.get(docid, options, callback)
 
 ### couch.remove(doc, options)
 
-### couch.post(doc, options)
+### couch.post(doc, options, callback)
 
 ### couch.changes
 
@@ -53,6 +61,9 @@ The subject of the of createCouch success callback. This is primary PouchDB API.
 
 ### couch.changes.removeListener(listener)
 
-### couch.bulk(docs, options)
+### couch.bulk(docs, options, callback)
 
+### couch.replicate
+
+### couch.replicate.from(options)
 

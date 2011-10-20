@@ -408,7 +408,7 @@ var makePouch = function (db) {
     return pouch.bulkDocs(doc, options);
   }
 
-  pouch.put = pouch.post = function (doc, options, callback) {
+  pouch.post = pouch.post = function (doc, options, callback) {
     if (options instanceof Function) {
       callback = options;
       options = {};
@@ -425,7 +425,7 @@ var makePouch = function (db) {
     });
   }
 
-  pouch.bulkDocs = function (req, options, callback) {
+  pouch.bulk = function (req, options, callback) {
     if (options instanceof Function) {
       callback = options;
       options = {};
